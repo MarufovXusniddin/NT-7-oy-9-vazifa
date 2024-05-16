@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+<div style="display: flex; align-items: center;">
+    <div style="flex: 1;">
+        <h2>Kategoriyalar</h2>
+    </div>
+    <div style="flex: 1;">
+        <a href="{% url 'cart' %}" style="text-decoration: none;"><h1>Savat 🛒</h1></a>
+    </div>
+</div>
+
+<ul>
+    <li><a href="{% url 'index' %}" style="text-decoration: none;">Barchasi</a></li>
+    {% for category in categories %}
+    <li><a href="{% url 'filter' category.id %}" style="text-decoration: none;">{{ category.name }}</a></li>
+    {% endfor %}
+</ul>
+<hr>
+
+<h2>Mahsulotlar</h2>
+{% for product in products %}
+<div>
+    <ul>
+        <li><a href="{% url 'detail' product.id %}">{{ product.name }}</a></li>
+        <li>${{ product.price }}/kg</li>
+        <li>{{ product.quantity }} kg qoldi</li>
+    </ul>
+</div>
+
+<div style="display: flex; align-items: center;">
+    <div style="flex: 1;">
+        <img src="{{ product.image.url }}" width="20%">
+    </div>
+    <div style="flex: 1">
+        <a href="{% url 'to_cart' product.id 'add' %}" style="text-decoration: none"><h1>add➕️🛒</h1></a>
+    </div>
+</div>
+
+<hr>
+{% endfor %}
+</body>
+</html>
